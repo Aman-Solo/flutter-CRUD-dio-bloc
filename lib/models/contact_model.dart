@@ -42,4 +42,4 @@ class Contact extends Equatable {
   }
   @override
   List<Object?> get props => [id, name, email, phone];
-  }
+  } 
