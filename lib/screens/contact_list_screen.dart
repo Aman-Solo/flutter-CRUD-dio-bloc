@@ -56,7 +56,29 @@ class ContactListScreen extends StatelessWidget {
                                             IconButton(
                                                 icon: const Icon(Icons.delete, color: Colors.blue),
                                                 onPressed: () {
-                                                    context.read<ContactBloc>().add(DeleteContact(contact.id!));
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (BuildContext context) {
+                                                            return AlertDialog(
+                                                                title: const Text('Delete Contact'),
+                                                                content: Text('Are you sure you want to delete ${contact.name}?'),
+                                                                actions: [
+                                                                    TextButton(
+                                                                        onPressed: () => Navigator.of(context).pop(),
+                                                                        child: const Text('Cancel'),
+                                                                    ),
+                                                                    TextButton(
+                                                                        onPressed: () {
+                                                                            Navigator.of(context).pop();
+                                                                            context.read<ContactBloc>().add(DeleteContact(contact.id!));
+                                                                        },
+                                                                        style: TextButton.styleFrom(iconColor: Colors.red, foregroundColor: Colors.red),
+                                                                        child: const Text('Delete'),
+                                                                    ),
+                                                                ],
+                                                            );
+                                                        },
+                                                    );
                                                 },
                                             ),
                                         ],
